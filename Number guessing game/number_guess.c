@@ -8,29 +8,47 @@ int main(void)
     int number_of_guesses = 0;
     int guessed_number;
 
-    // Seed the random number generator with current time
     srand(time(0));
 
-    // Generate a random number (0 to 100)
-    randomNumber = rand() % 100+1;
+    // generate random number between 1 to 100
+    randomNumber = rand() % 100 + 1;
 
+    // loop will run until user guesses correctly or runs out of attempts
     do
     {
-        printf("guess the number:");
-        scanf("%d", &guessed_number);
-    // Takes a number as input from user
-        if(guessed_number>randomNumber){
-            printf("lower number please \n");
+        printf("guess the number: ");
+        scanf("%d", &guessed_number);   // taking input from user
+
+        number_of_guesses++;  // counting number of attempts
+
+        // giving hints based on guess
+        if (guessed_number > randomNumber)
+        {
+            printf("lower number please\n");
         }
-        else if(guessed_number<randomNumber){
-            printf("higher number please \n");
+        else if (guessed_number < randomNumber)
+        {
+            printf("higher number please\n");
         }
-        else{
+        else
+        {
             printf("congrats!\n");
         }
-        number_of_guesses++;
+
+        // if user exceeds 10 attempts and still wrong
+        if (number_of_guesses >= 10 && guessed_number != randomNumber)
+        {
+            printf("you lose\n");
+            break;  // exit the loop
+        }
+
     } while (guessed_number != randomNumber);
 
-    printf("you guessed the number in %d guesses", number_of_guesses);
-   // return 0;
+    // printing result only if user wins
+    if (guessed_number == randomNumber)
+    {
+        printf("you guessed the number in %d guesses\n", number_of_guesses);
+    }
+
+    return 0;
 }
